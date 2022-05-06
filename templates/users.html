@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/dt-1.11.3/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/ju/dt-1.11.3/datatables.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+        <div class="header">
+            <header>
+                <ul>
+                    <li><a href="http://127.0.0.1:5000/">Homepage</a></li>
+                    <li><a href="http://127.0.0.1:5000/logout">Log Out</a></li>
+                    <li class="child_3"><a href="http://127.0.0.1:5000/edit_password.html">Change Password</a></li>
+                    <li><a href="http://127.0.0.1:5000/settings.html"><i class="fas fa-edit"></i>Edit Your Profile</a></li>
+                    <li><a href="http://127.0.0.1:5000/profile/{{session['user']}}"><i class="fas fa-user "></i>My Account</a></li>
+                </ul>
+            </header>
+        </div>
+</body>
+
+
+  <!-- Table of Users -->
+    <div id="container">
+       <h1>Users</h1>
+       <table id='usersTable' class="display" style="width:100%">
+           <thead>
+               <tr>
+                   <th>First Name</th>
+                   <th>Last Name</th>
+                   <th>Username</th>
+               </tr>
+           </thead>
+       </table>
+    </div>
+        <script>
+        </script>
+<script>
+  $(document).ready(function () {
+    $('#usersTable').DataTable({
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'get',
+      'ajax': {
+        'url': '/users'
+      },
+      searching: true,
+      sort: false,
+      "serverSide": false,
+      'columns': [
+        {data: 'first_name'},
+        {data: 'last_name'},
+        {data : "username", 
+        "render": function(data, type, row, meta){
+      if(type === 'display'){
+          data = '<a href="http://127.0.0.1:5000/profile/' + data + '">' + data + '</a>';
+      }
+      return data;
+    }
+  },
+      ],
+    });
+  });
+  </script>
+
+</script>
+
+
+</html>

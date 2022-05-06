@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <title>User Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+        <div class="header">
+            <header>
+                <ul>
+                    <li><a href="http://127.0.0.1:5000/">Homepage</a></li>
+                    <li><a href="http://127.0.0.1:5000/logout">Log Out</a></li>
+                    <li class="child_3"><a href="http://127.0.0.1:5000/edit_password.html">Change Password</a></li>
+                    <li><a href="http://127.0.0.1:5000/settings.html"><i class="fas fa-edit"></i>Edit Your Profile</a></li>
+                    <li><a href="http://127.0.0.1:5000/profile/{{session['user']}}"><i class="fas fa-user "></i>My Account</a></li>
+                    <li><a href="http://127.0.0.1:5000/users.html"><i class="fas fa-users "></i>Users</a></li>
+                </ul>
+            </header>
+        </div>
+</body>
+
+
+  <!-- User Profile -->
+    <div id="container">
+       <img src="{{ user.profilePicture(128) }}" style=" height: 150px;width: 150px;"/>
+       <h1>User Profile</h1>
+       <ul>
+          <li><h2>Username : </h2></li>
+          <li><h3>{{ user.username }} </h3></li>
+          <li><h2>First Name : </h2></li>
+          <li><h3>{{ user.first_name }} </h3></li>
+          <li><h2>Last Name : </h2></li>
+          <li><h3>{{ user.last_name }}</h3></li>
+          <li><h2>About Me: </h2></li>
+          <li><h3>{{ user.about_me  }} </h3></li>
+           <li><h2>Preference : </h2></li>
+           {% if user.business == 1 %}
+	        <li><h3>business</h3></li>
+            {% endif %}
+           {% if user.entertainment == 1 %}
+	        <li><h3>entertainment</h3></li>
+            {% endif %}
+             {% if user.general == 1 %}
+	        <li><h3>general</h3></li>
+            {% endif %}
+           {% if user.health == 1 %}
+	        <li><h3>health</h3></li>
+            {% endif %}
+           {% if  user.science == 1 %}
+	        <li><h3>science</h3></li>
+            {% endif %}
+           {% if user.sports == 1 %}
+	        <li><h3>sports</h3></li>
+            {% endif %}
+           {% if user.technology == 1 %}
+	        <li><h3>technology</h3></li>
+            {% endif %}
+           {% if user.keywords %}
+            <li><h3>{{ user.keywords }}</h3></li>
+           {% endif %}
+            {% if session['user'] != user.username %}
+           <button type="submit" class="follow" hidden="hidden">Follow</button>
+           <button type="submit" class="unfollow" hidden="hidden">Unfollow</button>
+           {% endif %}
+       </ul>
+    </div>
+
+    <div id="container">
+      <table id="following" border='1'>
+          <h1>Following</h1>
+        <tr>
+            <th>First Name</th>
+             <th>Last Name</th>
+             <th>Username</th>
+        </tr>
+    </table>
+    <table id="followers" border='1'>
+      <h1>Followers</h1>
+    <tr>
+        <th>First Name</th>
+         <th>Last Name</th>
+         <th>Username</th>
+    </tr>
+</table>
+    
+    <script>
+      var currentUserID = JSON.parse("{{ session['id'] | tojson }}");
+      var userID = JSON.parse("{{ user.id | tojson }}")
+      $(document).ready(function () {
+        $(".follow").click(function()
+        {
+            var currentUserID = JSON.parse("{{ session['id'] | tojson }}");
+            var userID = JSON.parse("{{ user.id | tojson }}")
+            console.log(currentUserID);
+            console.log(userID);
+            $.ajax({
+                type:'POST',
+                url:'http://127.0.0.1:5000/profile/' + currentUserID + '/follow/' + userID,
+                success: function(data)
+                {
+                  alert(data['message']);
+                  location.reload();
+                },
+                error: function(errorMessage)
+                {
+                  alert(errorMessage);
+                }
+            });
+        });
+        $(".unfollow").click(function()
+        {
+            var currentUserID = JSON.parse("{{ session['id'] | tojson }}");
+            var userID = JSON.parse("{{ user.id | tojson }}")
+            $.ajax({
+                type:'DELETE',
+                url:'http://127.0.0.1:5000/profile/' + currentUserID + '/unfollow/' + userID,
+                success: function(data)
+                {
+                  alert(data['message']);
+                  location.reload();
+                },
+                error: function(errorMessage)
+                {
+                  alert(errorMessage);
+                }
+            });
+        });
+        $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:5000/profile/' + userID + "/following",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+        console.log(data.following);
+        data.following.forEach(row => {
+          console.log(row.last_name);
+          $("#following tbody").append(
+            "<tr>"
+            +"<td>"+row.first_name+"</td>"
+            +"<td>"+row.last_name+"</td>"
+            +"<td>"+row.username+"</td>"
+            +"</tr>" )
+        })
+      },
+
+        error: function (errorMessage) {
+
+            alert(errorMessage);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:5000/profile/' + userID + "/followers",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+          data.followers.forEach(row => {
+            console.log(row.last_name);
+            $("#followers tbody").append(
+              "<tr>"
+              +"<td>"+row.first_name+"</td>"
+              +"<td>"+row.last_name+"</td>"
+              +"<td>"+row.username+"</td>"
+              +"</tr>" )
+          })
+      },
+
+        error: function (errorMessage) {
+
+            alert(errorMessage);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: 'http://127.0.0.1:5000/profile/' + currentUserID + "/follows/" + userID,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if(data['response'] == "Yes, the user does follow this particular user"){
+               $(".follow").hide();
+               $(".unfollow").show();
+            } else if(data['response'] == "No, the user does not follow this particular user"){
+              $(".follow").show();
+              $(".unfollow").hide();
+            }
+          },
+
+        error: function (errorMessage) {
+
+            alert(errorMessage);
+        }
+    });
+    });
+    </script>
+
+</html>
+

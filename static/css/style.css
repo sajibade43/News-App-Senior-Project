@@ -1,0 +1,547 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*lol*/
+
+body {
+    font-family: "Raleway", sans-serif;
+    background: #344a72;
+    color: #fff;
+    line-height: 1.805;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+h1,
+h2 {
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+p {
+    margin: 10px 0;
+}
+
+img {
+    width: 100%;
+}
+
+
+/* NavBar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    opacity: 0.8;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0px;
+    padding: 0 30px;
+    transition: 0.5s;
+}
+
+.navbar.top {
+    background: transparent;
+}
+
+.navbar a {
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 5px;
+}
+
+.navbar a:hover {
+    border-bottom: #28a745 2px solid;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar .logo {
+    font-weight: 400;
+}
+
+
+/* Form styling */
+
+#container {
+    margin: 30px auto;
+    margin-top: 110px;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.form-wrap {
+    background: #fff;
+    padding: 15px 25px;
+    color: #333;
+}
+
+.form-wrap h1,
+.form-wrap p {
+    text-align: center;
+}
+
+.form-wrap .form-group {
+    margin-top: 15px;
+}
+
+.form-wrap .form-group label {
+    display: block;
+    color: #666;
+}
+
+.form-wrap .form-group input {
+    /* styling the inputs */
+    width: 100%;
+    padding: 10px;
+    border: #ddd 1px solid;
+    border-radius: 5px;
+}
+
+.form-wrap button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #49c1a2;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form-wrap button:hover {
+    background: #37a08e;
+}
+
+.form-wrap .bottom-text {
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+footer a {
+    color: #49c1a2;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: 120px;
+        padding: 20px;
+    }
+    .navbar a {
+        padding: 10px 10px;
+        margin: 0 3px;
+    }
+    .flex-items {
+        flex-direction: column;
+    }
+    .flex-columns .column,
+    .flex-grid .column {
+        flex: 100%;
+        max-width: 100%;
+    }
+    .team img {
+        width: 70%;
+    }
+}
+
+
+/*Adam S Asimolowo 
+
+CSS code for password toggler and for strength password meter*/
+
+input[type="text"] {
+    font-family: "Raleway", sans-serif;
+}
+
+input[type="email"] {
+    font-family: "Raleway", sans-serif;
+}
+
+.password_toggler {
+    position: relative;
+    line-height: 20px;
+    width: 20px;
+    left: 280px;
+    bottom: 28px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.password_toggler i.fa-eye {
+    display: none;
+}
+
+.password_toggler.active i.fa-eye {
+    display: block;
+}
+
+.password_toggler.active i.fa-eye-slash {
+    display: none;
+}
+
+.password_toggler_reg {
+    position: relative;
+    line-height: 20px;
+    width: 20px;
+    left: 280px;
+    bottom: 28px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.password_toggler_reg i.fa-eye {
+    display: none;
+}
+
+.password_toggler_reg.active1 i.fa-eye {
+    display: block;
+}
+
+.password_toggler_reg.active1 i.fa-eye-slash {
+    display: none;
+}
+
+.password_toggler_2 {
+    position: relative;
+    line-height: 20px;
+    width: 20px;
+    left: 280px;
+    bottom: 28px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.password_toggler_2 i.fa-eye {
+    display: none;
+}
+
+.password_toggler_2.active i.fa-eye {
+    display: block;
+}
+
+.password_toggler_2.active i.fa-eye-slash {
+    display: none;
+}
+
+.form-group .password_strength {
+    text-align: center;
+    position: relative;
+    background-color: #f2f2f2;
+    top: -18px;
+    display: none;
+    height: auto;
+}
+
+.password_strength span:nth-child(1) {
+    color: black;
+    font-size: 15px;
+    z-index: 2;
+    font-weight: bold;
+    color: yell
+}
+
+.password_strength span:nth-child(2) {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 100%;
+    border-radius: 5px;
+    z-index: 1;
+    transition: all 300ms ease-in-out;
+    background: black;
+    opacity: 60%;
+}
+
+.strong_password_tip {
+    /* We only want this class to display when a user/client has clicked on the password element */
+    position: relative;
+    bottom: 40px;
+    left: 340px;
+    height: 0px;
+    display: none;
+}
+
+.strong_password_tip p {
+    font-weight: bold;
+    color: #fff;
+    font-size: smaller;
+}
+
+.validation_email {
+    font-weight: bold;
+    height: auto;
+    font-size: 13.5px;
+}
+
+.validation_email .invalid {
+    color: red;
+}
+
+.validation_email .valid {
+    color: green;
+}
+
+.confirm_password {
+    display: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/*Homepage Navbar CSS [TOP PAGE]*/
+
+.log_out_door {
+    color: black;
+}
+
+.header {
+    background-color: whitesmoke;
+    height: 30px;
+    margin: 0;
+}
+
+.header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.header ul li {
+    display: inline;
+    text-decoration: none;
+    /*float: left;*/
+}
+
+.header ul li a {
+    /*display: block;*/
+    padding: 10px;
+    color: #333;
+    font-size: 15px;
+}
+
+
+/*.header ul li:nth-child(3) {
+    padding-left: 50%;
+    padding-left: 35.591%
+    /* 
+}*/
+
+.header ul li a:hover {
+    /*display: block;*/
+    background-color: rgb(248, 243, 234);
+}
+
+.header ul li a i {
+    padding: 4px;
+}
+
+.title {
+    height: auto;
+}
+
+.title h1 {
+    padding-top: 25px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 50px;
+    opacity: 0.8;
+}
+
+.title h1:hover {
+    background-color: slateblue;
+}
+
+.title h1 i {
+    padding: 10px;
+}
+
+.nav {
+    height: auto;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.nav ul li {
+    display: inline;
+    border-right: 1px solid;
+}
+
+.nav ul li a {
+    color: #fff;
+    padding: 20px;
+    padding-bottom: 15px;
+    text-decoration: none;
+    font-size: 20px;
+    opacity: 0.8;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.nav ul li a:hover {
+    /*background-color: slategray;*/
+    border-bottom: 2px solid whitesmoke;
+}
+
+
+/*Side Navbar CSS*/
+
+.navbar_side {
+    font-size: 15.5px;
+    /*margin-right: 90%;*/
+    margin-left: 1.25%;
+    height: auto;
+    position: fixed;
+    padding-top: 4.35%;
+    padding-right: 90px;
+}
+
+.navbar_side_content img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.followers {
+    padding-top: 20%;
+}
+
+.followers ul li {
+    opacity: 0.8;
+    text-shadow: 2px 2px 4px #000000;
+    padding-bottom: 15%;
+}
+
+.search_bar input[type=text] {
+    padding: 2px;
+    border: none;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+.bttn {
+    padding: 0px;
+    padding-top: 2.5px;
+    color: black;
+}
+
+.reset_password {
+    padding-top: 15px;
+}
+
+.email_validator_text {
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+
+.lastchild_password {
+    padding-left: 81%;
+}
+
+.article_elements label {
+    font-size: smaller;
+}
+
+.article_form {
+    padding-top: 5%;
+}
+
+.article_elements_right {
+    position: relative;
+    left: 230px;
+    bottom: 110px;
+}
+
+.article_elements_right label {
+    font-size: smaller;
+}
+
+.dataTables_wrapper {
+    color: black;
+}
+
+
+/*Newsfeed List CSS Code */
+
+.newsfeed_table {
+    border-spacing: 7px;
+    /*background-color: red;*/
+    padding-top: 1.25%;
+    text-align: center;
+}
+
+.newsfeed_table tr {
+    padding-top: 6%;
+}
+
+.title_row {
+    font-size: 25px;
+}
+
+.title_row {
+    color: #fff;
+    opacity: 0.8;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.title_row td {
+    padding-top: .75%;
+}
+
+.title_row a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.last_row td {
+    padding-bottom: 1.25%;
+}
+
+#bottom {
+    margin-top: 2.5%;
+    padding-bottom: .5%;
+    background-color: #fff;
+}
+
+.footer {
+    text-align: center;
+    color: black;
+}
+
+.images_front {
+    height: 350px;
+    width: 650px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    filter: drop-shadow(6px 3.5px 2.5px #4f6999);
+}

@@ -1,0 +1,514 @@
+<!-- #border-right: 1px solid-->
+<!--HTML BOILERPLATE TEMPLATE-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Homepage</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
+
+    <!--font awesome-->
+    <script src="https://kit.fontawesome.com/8adb5da3fe.js" crossorigin="anonymous"></script>
+
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    </script>
+</head>
+
+<body>
+    <section id="top">
+        <!--this section will need to be manipulated by javascript to be opened only at certain times-->
+        <div class="header" style="background-color: red; margin-top: -10px; height: auto; padding-bottom: 0px; font-size: 20px;">
+            <header>
+                <!--a href = "https://news.microsoft.com/covid-19-response/"-->
+                <p style="text-align: center; font-weight: bold;"> <a href="https://news.microsoft.com/covid-19-response/" style=" text-decoration: none; color: #fff">Learn more about remote working, online schooling and community support during the COVID-19 outbreak</a></p>
+            </header>
+        </div>
+        <div class="header" style="margin-top: -10px;">
+            <header>
+                <ul>
+                    <li><a href="http://127.0.0.1:5000/settings.html"><i class="fas fa-edit"></i>Edit Your Profile</a></li>
+                    <li>
+                        <a href="http://127.0.0.1:5000/logout"><i class="fas fa-door-closed"></i>Log Out</a></li>
+                    <li class="child_3"><a href="http://127.0.0.1:5000/edit_password.html">Change Password</a></li>
+                    <li><a href="http://127.0.0.1:5000/profile/{{session['user']}}"><i class="fas fa-user "></i>My Account</a></li>
+                    <li><a href="http://127.0.0.1:5000/users.html"><i class="fas fa-users "></i>Users</a></li>
+
+                </ul>
+            </header>
+        </div>
+
+        <div class="title">
+            <h1><i class="fas fa-book-open"></i>SP News</h1>
+            <hr size="1">
+        </div>
+
+        <div class="navbar_side">
+            <div class="navbar_side_content">
+                <img src="https://previews.123rf.com/images/urfandadashov/urfandadashov1809/urfandadashov180902667/109317646-profile-pic-vector-icon-isolated-on-transparent-background-profile-pic-logo-concept.jpg">
+                <ul>
+                    <li>
+                        Name: {{session['user']}}
+                    </li>
+                    <li>
+                        # of Followers: <span class="followerCount"></span>
+                    </li>
+                    <li>
+                        Keywords: {{user.keywords}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="nav">
+            <nav style="padding-bottom: 13px;">
+                <ul>
+                    {% if user.business == 1 %}
+                    <!--if user.business is present, we will add it to ur navbar-->
+                    <li class="business"><a href="#">Business</a></li>
+                    {% endif %} {% if user.entertainment == 1 %}
+                    <li class="entertainment"><a href="#">Entertainment</a></li>
+                    {% endif %} {% if user.general == 1 %}
+                    <li class="general"><a href="#">General</a></li>
+                    {% endif %} {% if user.health == 1 %}
+                    <li class="health"><a href="#">Health</a></li>
+                    {% endif %} {% if user.science == 1 %}
+                    <li class="science"><a href="#">Science</a></li>
+                    {% endif %} {% if user.sports == 1 %}
+                    <li class="sports"><a href="#">Sports</a></li>
+                    {% endif %} {% if user.technology == 1 %}
+                    <li class="technology"><a href="#">Technology</a></li>
+                    {% endif %} {% if user.keywords != null %}
+                    <li class="keywords"><a href="#">Keywords</a></li>
+                    {% endif %}
+                    <li class="favorites"><a href="#">Favorites</a></li>
+                    </ul>
+
+            </nav>
+
+            <hr size="1" style="margin-bottom: .75%;">
+
+            <script>
+                function switchNewsFeed(data, category) {
+                    if ($('.newsfeed_table')) {
+                        $('.newsfeed_table tr').remove();
+                        console.log("children removed")
+                    }
+
+
+                    // style=height: 300px; width: 550px; margin-top: 2%; margin-bottom: -3%; filter: drop-shadow(5px 3.5px 2.5px #4f6999);
+
+                    // Filter out the arrays with no elements
+                    var newsfeed_data = data.results.filter(e => e.length);
+
+                    for (var preference = 0; preference < newsfeed_data.length; preference++) {
+                        for (var article = 0; article < newsfeed_data[preference].length; article++) {
+                            if (newsfeed_data[preference][article].category == category) {
+                                $(".newsfeed_table").append("<tr><td><img src = " + newsfeed_data[preference][article]['imageurl'] + " class = 'images_front' > </td></tr>" +
+                                    "<tr class = 'title_row'>" + "<td><u><a href =" + newsfeed_data[preference][article]['url'] + ">" +
+                                    newsfeed_data[preference][article]['title'] + "</a></u></tr>" + "<tr>" + "<td>" + newsfeed_data[preference][article]['category'] + "</tr>" +
+                                    "<tr>" + "</td>" + "<td>" + newsfeed_data[preference][article]['dateandtime'] + "</td>" + "</tr>" + "<tr class = 'last_row'>" +
+                                    "<td> From: " + newsfeed_data[preference][article]['author'] + "</td>" + "</tr>" + "<tr>" + "</td>" +
+                                        "<td><button type='submit' class = 'favorite' id='favorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Favorite</button></td>" + "</tr>" + "</tr>" + "<tr>" + "</td>" +
+                                        "<td><button type='submit' class = 'unfavorite' id='unfavorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Remove Favorite</button></td>" + "</tr>");
+                            }
+                        }
+                    }
+                }
+
+
+                $(".business").click(function() {
+                    console.log("business button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+
+                        switchNewsFeed(data, "business")
+
+                    });
+
+                });
+
+                $(".sports").click(function() {
+                    console.log("sports button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "sports")
+
+                    });
+                });
+
+
+                $(".entertainment").click(function() {
+                    console.log("entertainment button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "entertainment")
+
+                    });
+
+                });
+
+
+                $(".general").click(function() {
+                    console.log("general button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "general")
+
+                    });
+
+                });
+
+
+                $(".health").click(function() {
+                    console.log("health button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "health")
+
+                    });
+
+                });
+
+                $(".sports").click(function() {
+                    console.log("sports button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "sports")
+
+                    });
+                });
+
+                $(".science").click(function() {
+                    console.log("science button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "science")
+
+                    });
+                });
+
+                $(".technology").click(function() {
+                    console.log("technology button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        switchNewsFeed(data, "technology")
+
+                    });
+                });
+
+                $(".keywords").click(function() {
+                    console.log("keywords button clicked")
+
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        console.log("api feed found...")
+
+                        console.log(data.results)
+
+                        if ($('.newsfeed_table')) {
+                            $('.newsfeed_table tr').remove();
+                            console.log("children removed")
+                        }
+
+                        // Filter out the arrays with no elements
+                        var newsfeed_data = data.results.filter(e => e.length);
+
+
+                        categories = []
+                        for (var preference = 0; preference < newsfeed_data.length; preference++) {
+                            categories.push(newsfeed_data[preference][0].category)
+                        }
+
+
+                        console.log(categories)
+
+                        // Create an array that has the default preferences 
+                        preferences = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+
+                        // Create an empty 
+                        const preferencesSet = new Set(preferences);
+
+                        // use filter() method
+                        // to filter only those elements
+                        // that need not to be deleted from the array
+                        const keywords = categories.filter((category) => {
+                            // return those elements not in the preferencesSet
+                            return !preferencesSet.has(category);
+                        });
+
+                        console.log(keywords)
+
+
+                        for (var preference = 0; preference < newsfeed_data.length; preference++) {
+                            for (var article = 0; article < newsfeed_data[preference].length; article++) {
+                                if (keywords.includes(newsfeed_data[preference][article].category)) {
+                                    $(".newsfeed_table").append("<tr><td><img src = " + newsfeed_data[preference][article]['imageurl'] + " class = 'images_front' > </td></tr>" + "<tr class = 'title_row'>" + "<td><u><a href =" + newsfeed_data[preference][article]['url'] + ">" +
+                                        newsfeed_data[preference][article]['title'] + "</a></u></tr>" + "<tr>" + "<td>" + newsfeed_data[preference][article]['category'] + "</tr>" +
+                                        "<tr>" + "</td>" + "<td>" + newsfeed_data[preference][article]['dateandtime'] + "</td>" + "</tr>" + "<tr class = 'last_row'>" +
+                                        "<td>From: " + newsfeed_data[preference][article]['author'] + "</td>" + "</tr>" + 
+                                        "<tr>" + "</td>" +
+                                        "<td>" + newsfeed_data[preference][article]['url'] + "</td>" + "</tr>" +
+                                        "<td><button type='submit' class = 'favorite' id='favorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Favorite</button></td>" + "</tr>" + "</tr>" + "<tr>" + "</td>" +
+                                        "<td><button type='submit' class = 'unfavorite' id='unfavorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Remove Favorite</button></td>" + "</tr>");
+                                }
+                            }
+                        }
+                    });
+                });
+
+                $('.favorites').click(function() {
+                    console.log("favorites button clicked")
+
+                    $.getJSON("/{{session['id']}}/favorites", function(data) {
+                        console.log("api feed found...")
+
+                        var favorites_data = data.results;
+
+                        if ($('.newsfeed_table')) {
+                            $('.newsfeed_table tr').remove();
+                            console.log("children removed")
+                        }
+
+                        console.log(favorites_data);
+
+                        for (var article = 0; article < favorites_data.length; article++){
+                            $(".newsfeed_table").append("<tr><td><img src = " + favorites_data[article]['favorite_imageurl'] + " class = 'images_front' > </td></tr>" +
+                                "<tr class = 'title_row'>" + "<td><u><a href =" + favorites_data[article]['favorite_url'] + ">" +
+                                favorites_data[article]['favorite_title'] + "</a></u></tr>" + "<tr>" + "<td>" + favorites_data[article]['favorite_category'] + "</tr>"
+                                + "<tr>" + "</td>" + "<td>" + favorites_data[article]['favorite_dateandtime'] + "</td>" + "</tr>" + "<tr>" + "</td>" +
+                                "<td>" + favorites_data[article]['favorite_author'] + "</td>" + "</tr>" + "</tr>" + "<tr>" + "</td>" +
+                                "<td>Favorited by: " + favorites_data[article]['username'] + "</td>" + "</tr>");
+                            }
+                    })
+                });
+
+
+
+                var currentUserID = JSON.parse("{{ session['id'] | tojson }}");
+
+                $(document).on('click', '#favorite', function() {
+                    var articleID = this.value;
+                    console.log(articleID);
+                        $.ajax({
+                            type:'POST',
+                            url:'http://127.0.0.1:5000/' + currentUserID + '/favorite/' + articleID,
+                            success: function(data)
+                        {
+                            alert(data['message']);
+                            $(".favorite").hide();
+                            $(".unfavorite").show();
+                        },
+                            error: function(errorMessage)
+                        {
+                            alert(errorMessage);
+                        }
+                    });
+                });
+
+                $(document).on('click', '#unfavorite', function() {
+                    var articleID = this.value;
+                    console.log(articleID);
+                        $.ajax({
+                            type:'DELETE',
+                            url:'http://127.0.0.1:5000/' + currentUserID + '/unfavorite/' + articleID,
+                            success: function(data)
+                        {
+                            alert(data['message']);
+                        },
+                            error: function(errorMessage)
+                        {
+                            alert(errorMessage);
+                        }
+                    });
+                });
+           /*     $( document ).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: 'http://127.0.0.1:5000/' + currentUserID + "/favorites/" + articleID,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if(data['response'] == "Yes, the user does favorite the article"){
+                        $(".favorite").hide();
+                        $(".unfavorite").show();
+                        console.log("ok");
+                        } else if(data['response'] == "No, the user doesn't favorite that article"){
+                        $(".favorite").show();
+                        $(".unfavorite").hide();
+                        console.log("yes");
+                        }
+                    },
+
+                    error: function (errorMessage) {
+
+                        alert(errorMessage);
+                    }
+                });
+            });
+
+                favoritebtns = document.getElementsByName('favorite');
+                for (var i = 0; i < favoritebtns.length; i++) {
+                        console.log(i);
+                        $.getJSON('http://127.0.0.1:5000/' + currentUserID + "/favorites/" + articleID, function(data) {
+                            if(data['response'] == "Yes, the user does favorite the article"){
+                            $(favoritebtns[i]).hide();
+                            $(favoritebtns[i]).show();
+                            console.log("ok");
+                            } else if(data['response'] == "No, the user doesn't favorite that article"){
+                            $(favoritebtns[i]).show();
+                            $(favoritebtns[i]).hide();
+                            console.log("yes");
+                            }
+                        })
+                    };
+                    */
+
+            
+
+            </script>
+            <!--
+            <script>
+                $(document).ready(function() {
+
+                            $(".business").click(showFeed('business')); //shows newsfeed of business preference when clicked
+
+                            function showFeed(preference) {
+                                console.log("business preference clicked")
+                                $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+
+                                    console.log("api feed found...")
+                                });
+                            }
+            </script>
+            -->
+
+        </div>
+
+    </section>
+
+    <section id="middle">
+
+
+        <div class="newsfeed_list">
+            <center>
+                <table class="newsfeed_table">
+
+                    <!--
+                <tr> tr = table row
+                    <th>Article Title</th> (th = table header)
+                </tr>
+                <tr>
+                    <td>Date Published</td> (td = table dictionary)
+                </tr>
+                <tr>
+                    <td>Category</td>
+                </tr>
+                -->
+                </table>
+            </center>
+
+            <script>
+                $(function() {
+                    $.getJSON("/newsfeed/{{session['user']}}", function(data) {
+                        // Filter out the arrays with no elements
+                        var newsfeed_data = data.results.filter(e => e.length);
+
+                        for (var preference = 0; preference < newsfeed_data.length; preference++){
+                            for (var article = 0; article < newsfeed_data[preference].length; article++){
+                                $(".newsfeed_table").append("<tr><td><img src = " + newsfeed_data[preference][article]['imageurl'] + " class = 'images_front' > </td></tr>" +
+                                "<tr class = 'title_row'>" + "<td><u><a href =" + newsfeed_data[preference][article]['url'] + ">" +
+                                    newsfeed_data[preference][article]['title'] + "</a></u></tr>" + "<tr>" + "<td>" + newsfeed_data[preference][article]['category'] +
+                                    "</tr>" + "<tr>" + "</td>" + "<td>" + newsfeed_data[preference][article]['dateandtime'] + "</td>" + "</tr>" + "<tr>" + "</td>" +
+                                    "<td>" + newsfeed_data[preference][article]['url'] + "</td>" + "</tr>" +
+                                        "<td><button type='submit' name = 'favorite' id='favorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Favorite</button></td>" + "</tr>" + "</tr>" + "<tr>" + "</td>" +
+                                        "<td><button type='submit' name = 'unfavorite' id='unfavorite' value= " + newsfeed_data[preference][article]['pipeline_id'] +
+                                            ">Remove Favorite</button></td>" + "</tr>");
+                            }
+                        }
+
+                    });
+                });
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:5000/{{session['id']}}/numOfFollowers",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $('.followerCount').append(data['amount']['COUNT(u.username)']);
+                    },
+
+                    error: function (errorMessage) {
+
+                        alert(errorMessage);
+                    }
+                });
+
+                // function fetchData(){
+                //  fetch("/newsfeed/{{session['user']}}").then(response => {
+                //console.log(response)
+                //    return response.json();
+
+                //}).then(data => {
+                //  console.log(data.results)
+                //})
+                //.catch(error => { //checking for errors
+                //  console.log(error)
+                //});
+                //}
+                //var json_data = fetchData()
+                //console.log(json_data)
+            </script>
+        </div>
+    </section>
+
+    <section id="bottom">
+        <div class="footer">
+            <hr size=3>
+            <p>
+                © 2021 SP Technologies
+            </p>
+        </div>
+    </section>
+</body>
+
+</html>

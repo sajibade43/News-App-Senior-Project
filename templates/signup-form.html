@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="hero">
+        <div id="navbar" class="navbar top">
+            <h1 class="logo">
+                <span class="text-primary"><i class="fas fa-book-open"></i> SP</span> News
+            </h1>
+
+            <nav>
+                <Ul>
+                    <li><a href="signup-form.html">Sign Up </a></li>
+                    <li><a href="login-form.html">Login</a></li>
+                </Ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sign-Up -->
+    <div id="container">
+        <div class="form-wrap">
+            <h1>SP News</h1>
+            <p>Create your SP News account</p>
+
+            <form action="/register" method="post">
+
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" name="firstName" id="first-name" />
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" name="lastName" id="last-name" />
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" minlength="3" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" />
+                </div>
+
+                <div class="email_validator_text">
+                    <p>Invalid Email Address</p>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" minlength="8" />
+
+                    <div class="password_toggler_reg">
+                        <i class="fa fa-eye-slash"></i>
+                        <i class="fa fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="confirm_password">
+                    <p>
+                        Error: Passwords do not match
+                    </p>
+                </div>
+                <div class="strong_password_tip">
+                    <p>
+                        Tip: For the strongest password strength, include numbers(0-9), capital letters(A-Z), and special characters(!,%, @)
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" id="password2" />
+
+                    <div class="password_toggler_2">
+                        <i class="fa fa-eye-slash"></i>
+                        <i class="fa fa-eye"></i>
+                    </div>
+
+                    <div class="password_strength">
+                        <span>Strength: Neutral</span>
+                        <span></span>
+                    </div>
+
+                    </div>
+
+                <div class="article_form" style = "/*background-color: red;*/ height: 190px;">
+                    <h4 style="text-align: center;">Article Preferences</h4>
+                    <h6 style="text-align: center;">(Select all that apply)</h6>
+
+                    <div class="article_elements">
+                        <input type="checkbox" name="business_checkbox" id="business_checkbox">
+                        <label for="business_checkbox">Business</label><br>
+
+                        <input type="checkbox" name="entertainment_checkbox" id="entertainment_checkbox">
+                        <label for="entertainment_checkbox">Entertainment</label><br>
+
+                        <input type="checkbox" name="general_checkbox" id="general_checkbox">
+                        <label for="general_checkbox">General</label><br>
+
+                        <input type="checkbox" name="technology_checkbox" id="technology_checkbox">
+                        <label for="technology_checkbox">Technology</label><br>
+                    </div>
+
+                    <div class="article_elements_right">
+                        <input type="checkbox" name="health_checkbox" id="health_checkbox">
+                        <label for="health_checkbox">Health</label><br>
+
+                        <input type="checkbox" name="science_checkbox" id="science_checkbox">
+                        <label for="science_checkbox">Science</label><br>
+
+                        <input type="checkbox" name="sports_checkbox" id="sports_checkbox">
+                        <label for="sports_checkbox">Sports</label><br>
+
+                    </div>
+
+                    
+                </div>
+
+                <div class = "form-group">
+                    <label for="keywords">Keywords</label>
+                    <input type="text" name="keywords" id="keywords"/>
+                </div>
+
+                <!--<div class="form-group">
+                    <label for="keyword">Keywords</label>
+                    <input type="text" name="keyword" id="keyword" />
+                </div>!-->
+
+                <button type="submit" class="btn">Sign Up</button>
+
+                <div>
+                    <p style="font-weight: bold;">{{ data }}</p>
+                </div>
+
+                <p class="bottom-text">
+                    By clicking the Sign Up button, you agree to our
+                    <a href="#">Terms & Conditions</a> and
+                    <a href="#">Privacy Policy</a>
+                </p>
+            </form>
+        </div>
+        <footer>
+            <p>Already have an account? <a href="login-form.html">Login Here</a></p>
+        </footer>
+
+    </div>
+    <script src="../static/js/index.js"></script>
+</body>
+
+</html>
